@@ -1,0 +1,54 @@
+- Play 
+<span class="material-icons">
+play_arrow
+</span>
+
+- Pause
+<span class="material-icons">
+pause
+</span>
+
+- Forward 30
+<span class="material-icons">
+forward_30
+</span>
+
+- Replay 30
+<span class="material-icons">
+replay_30
+</span>
+
+- Picture in Picture 
+<span class="material-icons">
+picture_in_picture_alt
+</span>
+
+- Settings 
+<span class="material-icons">
+settings
+</span>
+
+- Fullscreen 
+<span class="material-icons">
+fullscreen
+</span>
+
+- Exit Fullscreen 
+<span class="material-icons">
+fullscreen_exit
+</span>
+
+- Volume Up
+<span class="material-icons">
+volume_up
+</span>
+
+- Volume Down 
+<span class="material-icons">
+volume_down
+</span>
+
+- Volume Mute 
+<span class="material-icons">
+volume_off
+</span>

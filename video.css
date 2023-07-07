@@ -1,0 +1,473 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+body {
+  background-color: #10141f;
+  font-family: "Rubik", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 0 60px;
+}
+
+.videoContainer {
+  width: 100%;
+  /* height: 400px; */
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4/2;
+}
+
+.videoContainer .videoTitle {
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to bottom, #000000bf, transparent);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  opacity: 1;
+  visibility: visible;
+  transition: 0.3s ease-in-out;
+  top: 0;
+  transform: translateY(0%);
+}
+
+.videoContainer .videoTitle.hide {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-100);
+}
+
+.videoContainer .videoTitle > h2 {
+  color: #fff;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.videoContainer .videoProgressContainer {
+  position: relative;
+  width: 100%;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.videoProgressContainer.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.videoContainer .videoProgressContainer .progressTime {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  padding: 4px 8px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 13px;
+  background-color: #ff601f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  opacity: 0;
+  transform: translateX(50%);
+  transition: opacity 0.2s ease-in-out, bottom 0.2s ease-in-out;
+}
+
+.videoContainer .videoProgressContainer .progressTime::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+  background-color: #ff601f;
+}
+
+.videoContainer .videoProgressContainer .progressTime.active {
+  opacity: 1;
+  bottom: 85px;
+}
+
+.videoContainer .videoProgress {
+  width: calc(100% - 40px);
+  height: 8px;
+  background-color: rgb(255 255 255 / 24%);
+  position: absolute;
+  bottom: 64px;
+  cursor: pointer;
+  /* overflow: hidden; */
+  transform: translateX(-50%);
+  left: 50%;
+  border-radius: 40px;
+}
+
+.videoContainer .videoProgress > span {
+  width: 0%;
+  height: 100%;
+  background-color: #ff601f;
+  position: absolute;
+  left: 0;
+  border-radius: 40px;
+  z-index: 999;
+  user-select: none;
+}
+
+.videoContainer .videoProgress > span::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #ff601f;
+  z-index: 999;
+  top: 50%;
+  transform: translate(50%, -50%);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  /* transform: translateX(10px); */
+}
+
+.videoContainer .videoProgress .bufferProgress {
+  position: absolute;
+  width: 0;
+  height: 100%;
+  background-color: rgb(255 255 255 / 50%);
+  left: 0;
+  border-radius: 40px;
+}
+
+.videoContainer > video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.videoContainer .videoControls {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 60px;
+  background: linear-gradient(to top, #000000, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  /* backdrop-filter: blur(4px); */
+  z-index: 999;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  visibility: visible;
+}
+
+.videoControls.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.videoContainer .videoControls .videoControlsLeft,
+.videoContainer .videoControls .videoControlsRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Volume */
+.videoContainer .videoControls .videoControlsLeft .videoVolume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.videoContainer
+  .videoControls
+  .videoControlsLeft
+  .videoVolume
+  > input[type="range"] {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  width: 0;
+  opacity: 0;
+  accent-color: white;
+  height: 4px;
+  transition: width 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  outline: none;
+  overflow: hidden;
+  border-radius: 40px;
+}
+
+.videoContainer
+  .videoControls
+  .videoControlsLeft
+  .videoVolume
+  > input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: -400px 0 0 400px #fff;
+}
+
+.videoContainer
+  .videoControls
+  .videoControlsLeft
+  .videoVolume
+  > .icon:hover
+  + .videoVolumeSlider,
+.videoControls .videoControlsLeft .videoVolume > input[type="range"]:hover {
+  width: 80px;
+  opacity: 1;
+}
+
+/* Time */
+.videoContainer .videoControls .videoControlsLeft .videoTime {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+}
+/* Icons */
+.videoContainer .videoControls .icon > span {
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  opacity: 0.9;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.videoContainer .videoControls .icon > span:hover {
+  opacity: 1;
+}
+
+/* When Video Paused */
+
+.videoContainer .videoControls .icon .pauseIcon {
+  display: none;
+}
+
+.videoContainer.paused .videoControls .icon .pauseIcon {
+  display: block;
+}
+
+.videoContainer.paused .videoControls .icon .playIcon {
+  display: none;
+}
+
+.videoContainer .videoControls .icon .replayIcon {
+  display: none;
+}
+
+.replayBackwardsIcon,
+.forwardIcon {
+  transform: rotate(0);
+  transition: 0.2s ease-in-out;
+}
+
+.replayBackwardsIcon:active {
+  transform: rotate(-40deg);
+}
+
+.forwardIcon:active {
+  transform: rotate(40deg);
+}
+
+.videoContainer .videoControls .icon .volumeOffIcon,
+.videoContainer .videoControls .icon .volumeDownIcon {
+  display: none;
+}
+
+/* When Video Muted */
+
+.videoContainer.muted .videoControls .icon .volumeOffIcon {
+  display: block;
+}
+
+.videoContainer.muted .videoControls .icon .volumeDownIcon,
+.videoContainer.muted .videoControls .icon .volumeUpIcon {
+  display: none;
+}
+
+/* When Video Volume Down */
+
+.videoContainer.volume-down .videoControls .icon .volumeDownIcon {
+  display: block;
+}
+
+.videoContainer.volume-down .videoControls .icon .volumeOffIcon,
+.videoContainer.volume-down .videoControls .icon .volumeUpIcon {
+  display: none;
+}
+
+/* When Video ends */
+
+.videoContainer.ended .videoControls .icon .replayIcon {
+  display: block;
+}
+
+.videoContainer.ended .videoControls .icon .playIcon,
+.videoContainer.ended .videoControls .icon .pauseIcon {
+  display: none;
+}
+
+/* When Enter fullscreen */
+
+.videoContainer.fullscreen-mode .videoControls .icon .exitFullscreenIcon {
+  display: block;
+}
+
+.videoContainer.fullscreen-mode .videoControls .icon .fullscreenIcon {
+  display: none;
+}
+
+/* Normal screen mode */
+.videoContainer .videoControls .icon .exitFullscreenIcon {
+  display: none;
+}
+
+/* Settings */
+.settings {
+  position: relative;
+}
+
+.settings .settingsIcon {
+  transform: rotate(0);
+  transition: transform 0.4s ease-in-out;
+}
+
+.settings .settingsIcon.active {
+  transform: rotate(-45deg);
+}
+
+.settings .settingsMenu {
+  position: absolute;
+  bottom: 210%;
+  background-color: rgb(28, 31, 41);
+  width: 220px;
+  right: -80px;
+  padding: 16px;
+  border-radius: 4px;
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  transition: opacity 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  display: none;
+}
+
+.settings .settingsMenu::-webkit-scrollbar {
+  width: 4px;
+  background-color: rgb(255 255 255 / 10%);
+}
+
+.settings .settingsMenu::-webkit-scrollbar-thumb {
+  background-color: #ffffff8c;
+  border-radius: 40px;
+}
+
+.settings .settingsMenu.active {
+  display: block;
+}
+
+.settings .settingsMenu > .menuTitle {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 400;
+  margin-bottom: 4px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ffffff0d;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.settings .settingsMenu > li {
+  color: #707c86;
+  width: 100%;
+  padding: 12px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  border-radius: 4px;
+  font-size: 14px;
+  user-select: none;
+  position: relative;
+  font-weight: 400;
+}
+
+.settings .settingsMenu > li:hover,
+.settings .settingsMenu > li.active {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Disable built in controls */
+video::-webkit-media-controls {
+  display: none !important;
+}
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+
+.screenPlayBtn > span {
+  font-size: 120px;
+}
+
+/* Spinner */
+
+.videoSpinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  pointer-events: none;
+  display: none;
+}
+
+.videoSpinner.active {
+  display: flex;
+}
+
+.videoSpinner::after {
+  content: "";
+  min-width: 80px;
+  min-height: 80px;
+  border: 8px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: #ff601f;
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
