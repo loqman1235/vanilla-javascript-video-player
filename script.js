@@ -72,5 +72,3 @@ videoProgress.addEventListener("click", (e) => {
   let percent = (e.offsetX / videoProgress.offsetWidth) * 100;
   video.currentTime = (percent / 100) * video.duration;
 });
-
-// When clicking on the progress bar of a video go to that part and also move the progress to the clicked part and explain code like i'm a child
